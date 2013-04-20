@@ -22,6 +22,11 @@ describe 'The Cursor class', ->
     cursor = new Cursor(@mongoCursor)
     expect(cursor._cursor).to.deep.equal @mongoCursor
 
+  it 'throws an error if the passed cursor is not a Mongo Cursor instance', ->
+    invalidCall = ->
+      cursor = new Cursor({})
+    expect(invalidCall).to.throw Error, /Object must be an instance of Mongo Cursor/
+
   it 'has wrapped versions of MongoDB Cursor functions which return normal values', (next)->
     cursor = new Cursor(@mongoCursor)
     fns = [

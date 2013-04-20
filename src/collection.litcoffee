@@ -4,7 +4,6 @@ The `Collection` class wraps the mongodb class of the same name in a layer of
 promise returning functions to facilitate easier programming.
 
 
-    Q = require 'q'
     Mongo = require 'mongodb'
     Cursor = require './cursor'
     poseidon = require 'poseidon'

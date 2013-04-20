@@ -6,7 +6,6 @@ previously configured using the `Driver`.
     Driver = require './driver'
     Collection = require './collection'
     Cursor = require './cursor'
-    Q = require 'q'
     poseidon = require 'poseidon'
 
     class Database
