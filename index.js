@@ -1,2 +1,12 @@
 coffee = require('coffee-script');
-module.exports = process.env.PLAYLYFE_TEST ? require('./src-cov/mongo') : require('./src/mongo');
+var index = null;
+if (process.env.PLAYLYFE_TEST) {
+  try {
+    index = require('./src-cov/mongo');
+  } catch(e) {
+    index = require('./src/mongo');
+  }
+} else {
+  index = require('./src/mongo');
+}
+module.exports = index;
