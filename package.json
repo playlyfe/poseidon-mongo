@@ -1,0 +1,40 @@
+{
+  "name": "poseidon-mongo",
+  "description": "A future wrapper around the Node Native MongoDB driver using Poseidon.",
+  "version": "0.0.1",
+  "keywords": ["Q", "promise", "api", "wrapper", "mongodb", "database", "playlyfe"],
+  "main": "./index",
+  "repository": {
+    "type": "git",
+    "url": "http://github.com/playlyfe/poseidon-mongo.git"
+  },
+  "bugs": {
+    "url": "http://github.com/playlyfe/poseidon-mongo/issues"
+  },
+  "author": {
+    "name": "Johny Jose",
+    "email": "johny@playlyfe.com",
+    "url": "http://blog.playlyfe.com"
+  },
+  "licenses": [{
+    "type": "MIT",
+    "url": "http://www.opensource.org/licenses/MIT"
+  }],
+  "dependencies": {
+    "mongodb": "*",
+    "q": "*",
+    "underscore": "~1.4.4",
+    "poseidon": "*"
+  },
+  "devDependencies": {
+    "grunt": "~0.4.1",
+    "chai": "~1.5.0",
+    "grunt-cafe-mocha": "~0.1.1",
+    "grunt-contrib-coffee": "~0.6.6",
+    "jscoverage": "~0.3.6",
+    "grunt-contrib-clean": "~0.4.1",
+    "sinon-chai": "~2.3.1",
+    "sinon": "~1.6.0",
+    "docco": "~0.6.2"
+  }
+}
