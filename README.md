@@ -8,7 +8,7 @@ Install
 -------
 To get started simply run
 
-    npm install playlyfe-node-sdk
+    npm install poseidon-mongo
 
 Introduction
 ------------
