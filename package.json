@@ -1,7 +1,7 @@
 {
   "name": "poseidon-mongo",
   "description": "A future wrapper around the Node Native MongoDB driver using Poseidon.",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "keywords": ["Q", "promise", "api", "wrapper", "mongodb", "database", "playlyfe"],
   "main": "./index",
   "repository": {

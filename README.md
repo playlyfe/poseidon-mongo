@@ -185,6 +185,20 @@ the [Node MongoDB Native Documentation](http://mongodb.github.io/node-mongodb-na
   * `stream`
   * `toArray`
 
+### MongoDB Data Types
+The following Data Types from the Node MongoDB Native driver are available:
+
+  * `BSON`
+  * `ObjectID`
+  * `Binary`
+  * `Code`
+  * `Double`
+  * `Long`
+  * `Timestamp`
+  * `MaxKey`
+  * `Symbol`
+
+
 License
 -------
 [The MIT License](http://opensource.org/licenses/MIT)
