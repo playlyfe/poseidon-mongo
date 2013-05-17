@@ -24,7 +24,8 @@
     "mongodb": "*",
     "q": "*",
     "underscore": "~1.4.4",
-    "poseidon": "*"
+    "poseidon": "*",
+		"coffee-script": "~1.6.2"
   },
   "devDependencies": {
     "grunt": "~0.4.1",
