@@ -49,4 +49,10 @@ easy access and reuse.
           delete @_configuration[connName]
         Q.all _connections
 
+      @shutdown: () ->
+        _connections = []
+        for connName, connConfig of @_configuration
+          if @_connections[connName]? then _connections.push @closeConnection(connName)
+        Q.all _connections
+
     module.exports = Driver
