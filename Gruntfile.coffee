@@ -41,6 +41,7 @@ module.exports = (grunt) ->
     @requires 'coffee'
     exec("node_modules/jscoverage/bin/jscoverage src-js src-cov", (err, stdout, stderr) ->
       exec("PLAYLYFE_TEST=1 node_modules/grunt-cafe-mocha/node_modules/mocha/bin/mocha -R html-cov > report.html", (err, stdout, stderr) ->
+        console.error(stderr)
         done()
         return
       )
