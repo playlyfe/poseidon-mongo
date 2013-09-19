@@ -23,7 +23,7 @@ easy access and reuse.
         config = @_configuration[connName]
         if config.auth? then authString = "#{config.auth}@"
         else authString = ''
-        url = "mongodb://#{authString}#{config.hosts.join(',')}/#{config.database}"
+        url = "mongodb://#{authString}#{config.hosts.join(',')}/#{config.database}?#{if config.authSource then 'authSource='+config.authSource else ''}"
         @_connections[connName] = Q.ninvoke MongoClient, 'connect', url, config.options
 
       @closeConnection: (connName) ->
