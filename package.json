@@ -1,7 +1,7 @@
 {
   "name": "poseidon-mongo",
   "description": "A future wrapper around the Node Native MongoDB driver using Poseidon.",
-  "version": "0.0.6",
+  "version": "0.0.7",
   "keywords": [
     "Q",
     "promise",
@@ -32,7 +32,7 @@
   ],
   "dependencies": {
     "mongodb": "*",
-    "q": "~0.9.5",
+    "q": "0.9.7",
     "underscore": "~1.4.4",
     "poseidon": "*",
     "coffee-script": "~1.6.2"
