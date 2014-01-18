@@ -50,12 +50,10 @@ promise returning functions to facilitate easier programming.
           @[fn] = poseidon.wrapReturn @_collection, fn, Collection
           return
         , @
-        [
-          'find'
-        ].forEach (fn) ->
-          @[fn] = poseidon.wrapReturn @_collection, fn, Cursor
-          return
-        , @
         return
+
+      find: (args...) ->
+        new Cursor(@_collection.find(args...))
+
 
     module.exports = Collection

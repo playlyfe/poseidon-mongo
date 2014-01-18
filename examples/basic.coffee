@@ -31,6 +31,6 @@ db.collection('test')
     collection.remove({})
 .finally ->
   db.close()
-.fail (err) ->
+.catch (err) ->
   console.error err
 .done()

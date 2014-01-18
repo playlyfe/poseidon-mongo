@@ -1,4 +1,4 @@
-Q = require 'q'
+{Promise} = require 'poseidon'
 {Driver, Database, Collection, Cursor} = require '../index'
 {Db, DBRef} = require 'mongodb'
 
@@ -51,7 +51,7 @@ describe 'The Database class', ->
     fns.forEach (fn, index) ->
       sinon.spy(Db.prototype, fn)
       result = db[fn].apply db, args[index]
-      expect(Q.isPromise(result)).to.equal true
+      expect(Promise.is(result)).to.equal true
       result.finally () ->
         expect(Db.prototype[fn]).to.have.been.called
         count += 1
@@ -76,7 +76,7 @@ describe 'The Database class', ->
     fns.forEach (fn, index) ->
       sinon.spy(Db.prototype, fn)
       result = db[fn].apply db, args[index]
-      expect(Q.isPromise(result)).to.equal true
+      expect(Promise.is(result)).to.equal true
       result.then (collection) ->
         if collection instanceof Array
           for value in collection
@@ -103,7 +103,7 @@ describe 'The Database class', ->
     fns.forEach (fn, index) ->
       sinon.spy(Db.prototype, fn)
       result = db[fn].apply db, args[index]
-      expect(Q.isPromise(result)).to.equal true
+      expect(Promise.is(result)).to.equal true
       result.then (cursor) ->
         expect(cursor).to.be.an.instanceof Cursor
       .finally () ->

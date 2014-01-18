@@ -1,4 +1,4 @@
-Q = require 'q'
+{Promise} = require 'poseidon'
 {Driver, Cursor} = require '../index'
 Mongo = require 'mongodb'
 
@@ -48,9 +48,9 @@ describe 'The Cursor class', ->
     fns.forEach (fn, index) ->
       sinon.spy(Mongo.Cursor.prototype, fn)
       result = cursor[fn].apply cursor, args[index]
-      expect(Q.isPromise(result)).to.equal true
+      expect(Promise.is(result)).to.equal true
       result
-      .fail () ->
+      .catch () ->
         return
       .finally () ->
         expect(Mongo.Cursor.prototype[fn]).to.have.been.called
@@ -74,7 +74,7 @@ describe 'The Cursor class', ->
     fns.forEach (fn, index) ->
       sinon.spy(Mongo.Cursor.prototype, fn)
       result = cursor[fn].apply cursor, args[index]
-      expect(Q.isPromise(result)).to.equal false
+      expect(Promise.is(result)).to.equal false
       expect(Mongo.Cursor.prototype[fn]).to.have.been.called
       Mongo.Cursor.prototype[fn].restore()
       return
@@ -101,7 +101,7 @@ describe 'The Cursor class', ->
     fns.forEach (fn, index) ->
       sinon.spy(Mongo.Cursor.prototype, fn)
       result = cursor[fn].apply cursor, args[index]
-      expect(Q.isPromise(result)).to.equal false
+      expect(Promise.is(result)).to.equal false
       expect(result).to.deep.equal cursor
       expect(Mongo.Cursor.prototype[fn]).to.have.been.called
       Mongo.Cursor.prototype[fn].restore()

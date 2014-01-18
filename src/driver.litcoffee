@@ -1,12 +1,14 @@
 Driver
 ======
 The `Driver` class maintains multiple database connection configurations.
-It also caches open database connections for quick access as **Q promises** for
+It also caches open database connections for quick access as **Promise promises** for
 easy access and reuse.
 
     {MongoClient} = require 'mongodb'
-    Q = require 'q'
+    {Promise} = require 'poseidon'
     _ = require 'underscore'
+
+    connect = Promise.promisify(MongoClient.connect, MongoClient)
 
     class Driver
       @_configuration: {}
@@ -14,45 +16,36 @@ easy access and reuse.
       @configure: (connName, connConfig) ->
         throw new Error('Configuration object required') unless connConfig?
         throw new Error('Invalid authentication credentials') unless not connConfig.auth? or /.+:.+/.test connConfig.auth
-        @_configuration[connName] = _.defaults connConfig, hosts: ['localhost:27017'], auth: null, database: 'default', options: null
+        Driver._configuration[connName] = _.defaults connConfig, hosts: ['localhost:27017'], auth: null, database: 'default', options: null
         return
 
       @openConnection: (connName) ->
-        throw Error('Connection not configured') unless @_configuration[connName]?
-        if @_connections[connName]? then return @_connections[connName]
-        config = @_configuration[connName]
+        return Promise.reject new Error('Connection not configured') unless Driver._configuration[connName]?
+        if Driver._connections[connName]? then return Driver._connections[connName]
+        config = Driver._configuration[connName]
         if config.auth? then authString = "#{config.auth}@"
         else authString = ''
         url = "mongodb://#{authString}#{config.hosts.join(',')}/#{config.database}?#{if config.authSource then 'authSource='+config.authSource else ''}"
-        @_connections[connName] = Q.ninvoke MongoClient, 'connect', url, config.options
+        Driver._connections[connName] = connect(url, config.options)
 
       @closeConnection: (connName) ->
-        throw Error('Connection does not exist') unless @_connections[connName]?
-        self = @
-        _result = Q.defer()
-        @_connections[connName].then (db) ->
-          Q.ninvoke(db, 'close', true)
-        .then ->
-          delete self._connections[connName]
-          _result.resolve()
-          return
-        , (err) ->
-          _result.reject err
-          return
-        .done()
-        _result.promise
+        return Promise.reject new Error('Connection does not exist') unless Driver._connections[connName]?
+        Driver._connections[connName]
+        .then (db) ->
+          delete Driver._connections[connName]
+          db.close(true)
 
       @reset: () ->
         _connections = []
-        for connName, connConfig of @_configuration
-          if @_connections[connName]? then _connections.push @closeConnection(connName)
-          delete @_configuration[connName]
-        Q.all _connections
+        for connName, connConfig of Driver._configuration
+          if Driver._connections[connName]? then _connections.push(Driver.closeConnection(connName))
+          delete Driver._configuration[connName]
+        Promise.all(_connections)
 
       @shutdown: () ->
         _connections = []
-        for connName, connConfig of @_configuration
-          if @_connections[connName]? then _connections.push @closeConnection(connName)
-        Q.all _connections
+        for connName, connConfig of Driver._configuration
+          if Driver._connections[connName]? then _connections.push Driver.closeConnection(connName)
+        Promise.all _connections
 
     module.exports = Driver

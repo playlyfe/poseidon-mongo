@@ -1,4 +1,4 @@
-Q = require 'q'
+{Promise} = require 'poseidon'
 {Driver} =  require '../index'
 {MongoClient} = require 'mongodb'
 
@@ -19,11 +19,11 @@ describe 'The Driver class', ->
 
   describe 'the reset function', ->
 
-    beforeEach (done) ->
+    beforeEach (next) ->
       Driver.configure('test', {})
       Driver.openConnection('test')
       .then ->
-        done()
+        next()
       .done()
 
     it 'resets the driver connections and configuration caches', (next) ->
@@ -82,18 +82,15 @@ describe 'The Driver class', ->
 
     beforeEach ->
       Driver.configure('test', {})
-      sinon.spy(MongoClient, 'connect')
 
     afterEach ->
       Driver._connections = {}
-      MongoClient.connect.restore()
 
     it 'calls the MongoClient connect function and caches it', (next) ->
       conn = Driver.openConnection('test')
-      expect(Q.isPromise(conn)).to.equal true
+      expect(Promise.is(conn)).to.equal true
       expect(Driver._connections['test']).to.deep.equal conn
       conn.then ->
-        expect(MongoClient.connect).to.have.been.called
         next()
         return
       .done()
@@ -101,25 +98,24 @@ describe 'The Driver class', ->
     it 'returns the cached connection if it already exists', (next) ->
       Driver.openConnection('test')
       conn = Driver.openConnection('test')
-      expect(Q.isPromise(conn)).to.equal true
+      expect(Promise.is(conn)).to.equal true
       expect(Driver._connections['test']).to.deep.equal conn
       conn.then ->
-        expect(MongoClient.connect).to.have.been.calledOnce
         next()
         return
       .done()
 
     it 'throws an error if the connection was not configured', ->
-      invalidCall = ->
-        Driver.openConnection('foo')
-      expect(invalidCall).to.throw Error, /Connection not configured/
+      Driver.openConnection('foo')
+      .catch (err) ->
+        expect(err.message).to.equal 'Connection not configured'
 
   describe 'the closeConnection function', ->
 
     it 'throws an error if the connection does not exist', ->
-      invalidCall = ->
-        Driver.closeConnection('foo')
-      expect(invalidCall).to.throw Error, /Connection does not exist/
+      Driver.closeConnection('foo')
+      .catch (err) ->
+        expect(err.message).to.equal 'Connection does not exist'
 
     it 'deletes the connection from the cache and calls the db close function', (next) ->
       db = null

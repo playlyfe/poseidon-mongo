@@ -1,7 +1,7 @@
 Poseidon Mongo
 ==============
 The **Poseidon Mongo** module provides convenient low level database access
-using **Q promises**.
+using **Bluebird promises**.
 
     Driver = require './driver'
     Database = require './database'

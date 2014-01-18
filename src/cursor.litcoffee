@@ -9,7 +9,7 @@ promise returning functions to facilitate easier programmign.
     class Cursor
 
       constructor: (cursor) ->
-        throw Error('Object must be an instance of Mongo Cursor') unless cursor instanceof Mongo.Cursor
+        throw Error('Object must be an instance of Mongo Cursor') unless cursor.constructor.name is 'Cursor'
         @_cursor = cursor
         [
           'toArray'
