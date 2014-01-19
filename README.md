@@ -40,9 +40,7 @@ client.collection('test_insert')
     return collection.count();
   }).then(function(count){
     assert(count, 1);
-    return collection.find();
-  }).then(function(cursor){
-    return cursor.toArray();
+    return collection.find().toArray();
   }).then(function(results){
     assert(results.length, 1);
     assert(results[0].a, 2);
@@ -69,9 +67,7 @@ client.collection('test_insert')
     collection.count()
   .then (count) ->
     assert(count, 1);
-    collection.find()
-  .then (cursor) ->
-    cursor.toArray();
+    collection.find().toArray()
   .then (results) ->
     assert(results.length, 1);
     assert(results[0].a, 2);
