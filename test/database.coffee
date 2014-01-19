@@ -9,7 +9,7 @@ describe 'The Database class', ->
 
   it 'has an internal connection from the driver cache', ->
     db = new Database('default')
-    expect(db._connection).to.deep.equal Driver._connections['default']
+    expect(db.instance).to.deep.equal Driver._connections['default']
 
   it 'has wrapped versions of MongoDB database functions which return normal values', (next) ->
     db = new Database('default')

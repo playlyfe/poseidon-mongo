@@ -4,6 +4,14 @@ Poseidon Mongo
 Poseidon Mongo provides a promise layer around the Node Native MongoDB driver
 with the help of the Poseidon library.
 
+It has performance on par with the plain mongodb native library
+
+```
+Native MongoDB x 277 ops/sec ±2.42% (80 runs sampled)
+Poseidon MongoDB x 271 ops/sec ±2.65% (71 runs sampled)
+Fastest is Native MongoDB,Poseidon MongoDB
+```
+
 Install
 -------
 To get started simply run

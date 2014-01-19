@@ -17,7 +17,7 @@ describe 'The Collection class', ->
 
   it 'wraps a MongoDB collection', ->
     collection = new Collection(@mongoCollection)
-    expect(collection._collection).to.deep.equal @mongoCollection
+    expect(collection.instance).to.deep.equal @mongoCollection
 
   it 'throws an error if the passed collection is not a Mongo Collection instance', ->
     invalidCall = ->

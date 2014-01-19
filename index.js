@@ -4,9 +4,9 @@ if (process.env.PLAYLYFE_TEST) {
   try {
     index = require('./src-cov/mongo');
   } catch(e) {
-    index = require('./src/mongo');
+    index = require('./lib/mongo');
   }
 } else {
-  index = require('./src/mongo');
+  index = require('./lib/mongo');
 }
 module.exports = index;

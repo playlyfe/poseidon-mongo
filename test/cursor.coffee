@@ -20,7 +20,7 @@ describe 'The Cursor class', ->
 
   it 'wraps a MongoDB cursor', ->
     cursor = new Cursor(@mongoCursor)
-    expect(cursor._cursor).to.deep.equal @mongoCursor
+    expect(cursor.instance).to.deep.equal @mongoCursor
 
   it 'throws an error if the passed cursor is not a Mongo Cursor instance', ->
     invalidCall = ->
