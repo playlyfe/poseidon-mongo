@@ -9,9 +9,11 @@ Driver = require './driver'
 Database = require './database'
 Collection = require './collection'
 Cursor = require './cursor'
+Promise = require 'bluebird'
 {ObjectID, Binary, Code, BSON, Double, Long, Timestamp, MaxKey, Symbol} = require 'mongodb'
 
 module.exports =
+  Promise: Promise
   Driver: Driver
   Database: Database
   Collection: Collection

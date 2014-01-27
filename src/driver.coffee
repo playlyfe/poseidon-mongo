@@ -7,7 +7,7 @@ easy access and reuse.
 ###
 
 {MongoClient} = require 'mongodb'
-{Promise} = require 'poseidon'
+Promise = require 'bluebird'
 _ = require 'lodash'
 
 connect = Promise.promisify(MongoClient.connect, MongoClient)
