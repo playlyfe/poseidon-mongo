@@ -1,4 +1,4 @@
-{Promise} = require 'poseidon'
+Promise = require 'bluebird'
 {Driver, Database, Collection, Cursor} = require '../index'
 {Db, DBRef} = require 'mongodb'
 
@@ -14,21 +14,21 @@ describe 'The Database class', ->
   it 'has wrapped versions of MongoDB database functions which return normal values', (next) ->
     db = new Database('default')
     fns = [
-      'collectionNames'
+      'listCollections' # 'collectionNames' removed amd replaced
       'eval'
-      'dereference'
+      'dereference' # removed
       'logout'
       'command'
-      'lastError'
-      'previousErrors'
-      'resetErrorHistory'
+      # 'lastError'
+      # 'previousErrors'
+      # 'resetErrorHistory'
       'createIndex'
       'ensureIndex'
-      'cursorInfo'
+      'cursorInfo' # removed
       'dropIndex'
       'reIndex'
       'indexInformation'
-      'stats'
+      'stats' # removed
     ]
     args = [
       ['system.indexes']
@@ -36,9 +36,9 @@ describe 'The Database class', ->
       [new DBRef('test', 'foo','default')]
       []
       [{ping: 1}]
-      []
-      []
-      []
+      # []
+      # []
+      # []
       ['test',{a:1}]
       ['test',{a:1}]
       []
@@ -94,11 +94,12 @@ describe 'The Database class', ->
   it 'has wrapped versions of MongoDB Database functions which return a MongoDB Cursor', (next) ->
     db = new Database('default')
     fns = [
-      'collectionsInfo'
+      # 'collectionsInfo' removed
     ]
     args = [
-      []
+      # []
     ]
+    next()
     count = 0
     fns.forEach (fn, index) ->
       sinon.spy(Db.prototype, fn)

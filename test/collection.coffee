@@ -1,4 +1,4 @@
-{Promise} = require 'poseidon'
+Promise = require 'bluebird'
 {Driver, Collection, Cursor} = require '../index'
 Mongo = require 'mongodb'
 

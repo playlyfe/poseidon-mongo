@@ -31,14 +31,16 @@
     }
   ],
   "scripts": {
-    "prepublish": "./node_modules/coffee-script/bin/coffee src/generator.coffee"
+    "prepublish": "./node_modules/coffee-script/bin/coffee src/generator.coffee",
+    "test": "mocha"
   },
   "dependencies": {
     "bluebird": "2.3.11",
-    "mongodb": "1.4.23",
-    "lodash": "~2.4.1"
+    "mongodb": "1.4.38",
+    "lodash": "2.4.1"
   },
   "devDependencies": {
+    "mocha": "2.2.5",
     "poseidon": "0.3.2",
     "grunt": "~0.4.1",
     "chai": "~1.5.0",
