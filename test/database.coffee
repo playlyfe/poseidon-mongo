@@ -14,38 +14,24 @@ describe 'The Database class', ->
   it 'has wrapped versions of MongoDB database functions which return normal values', (next) ->
     db = new Database('default')
     fns = [
-      'listCollections' # 'collectionNames' removed amd replaced
       'eval'
-      'dereference' # removed
       'logout'
       'command'
-      # 'lastError'
-      # 'previousErrors'
-      # 'resetErrorHistory'
       'createIndex'
       'ensureIndex'
-      'cursorInfo' # removed
       'dropIndex'
       'reIndex'
       'indexInformation'
-      'stats' # removed
     ]
     args = [
-      ['system.indexes']
       ['function(){}']
-      [new DBRef('test', 'foo','default')]
       []
       [{ping: 1}]
-      # []
-      # []
-      # []
       ['test',{a:1}]
       ['test',{a:1}]
-      []
       ['test', 'a_1']
       ['test']
       ['test']
-      []
     ]
     count = 0
     fns.forEach (fn, index) ->
@@ -94,10 +80,10 @@ describe 'The Database class', ->
   it 'has wrapped versions of MongoDB Database functions which return a MongoDB Cursor', (next) ->
     db = new Database('default')
     fns = [
-      # 'collectionsInfo' removed
+      'listCollections'
     ]
     args = [
-      # []
+      [{}]
     ]
     next()
     count = 0

@@ -122,26 +122,22 @@ module.exports = {
     "type": "promise",
     "functions": {
       "db": {},
-      "collectionNames": {},
+      "listCollections": {
+        "return": ["Cursor"]
+      },
       "eval": {},
-      "dereference": {},
       "logout": {},
       "authenticate": {},
       "addUser": {},
       "removeUser": {},
       "command": {},
       "dropCollection": {},
-      "lastError": {},
-      "previousErrors": {},
-      "resetErrorHistory": {},
       "createIndex": {},
       "ensureIndex": {},
-      "cursorInfo": {},
       "dropIndex": {},
       "reIndex": {},
       "indexInformation": {},
       "dropDatabase": {},
-      "stats": {},
       "close": {},
       "collection": {
         "return": ["Collection"]
@@ -159,10 +155,7 @@ module.exports = {
       },
       "renameCollection": {
         "return": ["Collection"]
-      },
-      "collectionsInfo": {
-        "return": ["Cursor"]
-      },
+      }
     }
   }
 }
