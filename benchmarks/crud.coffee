@@ -1,7 +1,7 @@
 {Driver, Database} = require '../index'
 MongoClient = require('mongodb').MongoClient
 Benchmark = require 'benchmark'
-
+MongoDriver = new Driver()
 suite = new Benchmark.Suite()
 
 nativeDb = null
@@ -20,7 +20,7 @@ nativeMongoDB = (deferred) ->
   )
 
 poseidonMongoDB = (deferred) ->
-  poseidonDb = new Database('default')
+  poseidonDb = new Database(MongoDriver, 'default')
   poseidonDb.collection('test')
   .then (collection) ->
     collection.insert({ _id: 'foo' })
@@ -36,8 +36,8 @@ poseidonMongoDB = (deferred) ->
 MongoClient.connect 'mongodb://127.0.0.1:27017/test', (err, db) ->
   if err then throw err;
   nativeDb = db
-  Driver.configure('default', {})
-  Driver.openConnection('default')
+  MongoDriver.configure('default', {})
+  MongoDriver.openConnection('default')
   .then ->
     suite
     .add('Native MongoDB', { fn: nativeMongoDB, defer: true })
@@ -47,5 +47,7 @@ MongoClient.connect 'mongodb://127.0.0.1:27017/test', (err, db) ->
     )
     .on('complete', () ->
       console.log('Fastest is ' + this.filter('fastest').pluck('name'));
+      MongoDriver.shutdown()
+      nativeDb.close()
     )
     suite.run()

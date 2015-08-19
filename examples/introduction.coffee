@@ -1,9 +1,11 @@
-{Driver, Database} = require '../index'
+Mongo = require '../index'
+Driver = new Mongo.Driver()
+{Database} = Mongo
 assert = require 'assert'
 
 Driver.configure('test', { hosts: ['127.0.0.1:27017'], database: 'test', options: { w: 1 } })
 
-client = new Database('test')
+client = new Database(Driver, 'test')
 client.collection('test_insert')
 .then (collection) ->
   collection.insert({a:2})

@@ -27,12 +27,12 @@ Compare the example below to the [original introduction](https://github.com/mong
 
 ```javascript
 Mongo = require('../index.js');
-Driver = Mongo.Driver;
+Driver = new Mongo.Driver();
 Database = Mongo.Database;
 assert = require('assert');
 Driver.configure('test', { hosts: ['127.0.0.1:27017'], database: 'test', options: { w: 1 } });
 
-client = new Database('test');
+client = new Database(Driver, 'test');
 client.collection('test_insert')
 .then(function(collection){
   return collection.insert({a:2})
@@ -40,7 +40,9 @@ client.collection('test_insert')
     return collection.count();
   }).then(function(count){
     assert(count, 1);
-    return collection.find().toArray();
+    return collection.find();
+  }).then(function(cursor){
+    return cursor.toArray();
   }).then(function(results){
     assert(results.length, 1);
     assert(results[0].a, 2);
@@ -54,12 +56,14 @@ client.collection('test_insert')
 It get even better with Jeremy Ashkenas' [Coffescript](http://coffeescript.org/).
 
 ```coffee
-{Driver, Database} = require '../index'
+Mongo = require '../index'
+Driver = new Mongo.Driver()
+{Database} = Mongo
 assert = require 'assert'
 
 Driver.configure('test', { hosts: ['127.0.0.1:27017'], database: 'test', options: { w: 1 } })
 
-client = new Database('test')
+client = new Database(Driver, 'test')
 client.collection('test_insert')
 .then (collection) ->
   collection.insert({a:2})
@@ -67,7 +71,9 @@ client.collection('test_insert')
     collection.count()
   .then (count) ->
     assert(count, 1);
-    collection.find().toArray()
+    collection.find()
+  .then (cursor) ->
+    cursor.toArray();
   .then (results) ->
     assert(results.length, 1);
     assert(results[0].a, 2);

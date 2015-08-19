@@ -1,10 +1,10 @@
 Mongo = require('../index.js');
-Driver = Mongo.Driver;
+Driver = new Mongo.Driver();
 Database = Mongo.Database;
 assert = require('assert');
 Driver.configure('test', { hosts: ['127.0.0.1:27017'], database: 'test', options: { w: 1 } });
 
-client = new Database('test');
+client = new Database(Driver, 'test');
 client.collection('test_insert')
 .then(function(collection){
   return collection.insert({a:2})
