@@ -6,8 +6,9 @@ describe 'The Collection class', ->
 
   beforeEach (next) ->
     @mongoCollection = null
-    Driver.configure('default', {})
-    Driver.openConnection('default')
+    MongoDriver = new Driver()
+    MongoDriver.configure('default', {})
+    MongoDriver.openConnection('default')
     .then (db) =>
       db.collection('test', (err, _collection) =>
         @mongoCollection = _collection

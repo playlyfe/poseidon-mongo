@@ -7,8 +7,9 @@ describe 'The Cursor class', ->
   beforeEach (next) ->
     self = @
     @mongoCursor = null
-    Driver.configure('default', {})
-    Driver.openConnection('default')
+    MongoDriver = new Driver()
+    MongoDriver.configure('default', {})
+    MongoDriver.openConnection('default')
     .then (db) ->
       db.collection('test', (err, _collection) ->
         _collection.find({}, (err, _cursor) ->

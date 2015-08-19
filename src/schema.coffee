@@ -107,12 +107,11 @@ module.exports = {
   },
   "Database": {
     "require": {
-      "Driver": "./driver",
       "Collection": "./collection",
       "Cursor": "./cursor"
     },
     "constructor": {
-      "params": ["connectionName"],
+      "params": ["Driver", "connectionName"],
       "body": """
       this.connectionName = connectionName;
       this.instance = Driver.openConnection(connectionName);

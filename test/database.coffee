@@ -5,14 +5,16 @@ Promise = require 'bluebird'
 describe 'The Database class', ->
 
   beforeEach ->
-    Driver.configure('default', {})
+    @MongoDriver = new Driver()
+    @MongoDriver.configure('default', {})
+    return
 
   it 'has an internal connection from the driver cache', ->
-    db = new Database('default')
-    expect(db.instance).to.deep.equal Driver._connections['default']
+    db = new Database(@MongoDriver, 'default')
+    expect(db.instance).to.deep.equal @MongoDriver._connections['default']
 
   it 'has wrapped versions of MongoDB database functions which return normal values', (next) ->
-    db = new Database('default')
+    db = new Database(@MongoDriver, 'default')
     fns = [
       'eval'
       'logout'
@@ -47,7 +49,7 @@ describe 'The Database class', ->
       return
 
   it 'has wrapped versions of MongoDB Database functions which return a MongoDB Collection', (next) ->
-    db = new Database('default')
+    db = new Database(@MongoDriver, 'default')
     fns = [
       'createCollection'
       'collection'
@@ -78,7 +80,7 @@ describe 'The Database class', ->
       return
 
   it 'has wrapped versions of MongoDB Database functions which return a MongoDB Cursor', (next) ->
-    db = new Database('default')
+    db = new Database(@MongoDriver, 'default')
     fns = [
       'listCollections'
     ]
